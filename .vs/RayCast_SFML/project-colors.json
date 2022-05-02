@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "fc9603ed-8562-4a01-8615-bce1d20d8704": {
+      "ProjectGuid": "fc9603ed-8562-4a01-8615-bce1d20d8704",
+      "DisplayName": "RayCast_SFML",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

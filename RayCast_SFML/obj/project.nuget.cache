@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "BAUOiRbmA1/9qC4VnXwLYt3GKbnyNlqoxc8wwuH+vXvJ5hzFbrCWr+2ltWyXf29jFJMguBno+47iYYVDCfOltg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\artem\\source\\repos\\RayCast_SFML\\RayCast_SFML\\RayCast_SFML.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\artem\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\artem\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
+    "C:\\Users\\artem\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
+    "C:\\Users\\artem\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
+    "C:\\Users\\artem\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
+    "C:\\Users\\artem\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
