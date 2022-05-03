@@ -77,3 +77,8 @@ C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\obj\Debug\net5.0\RayCast_S
 C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\obj\Debug\net5.0\ref\RayCast_SFML.dll
 C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\obj\Debug\net5.0\RayCast_SFML.pdb
 C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\obj\Debug\net5.0\RayCast_SFML.genruntimeconfig.cache
+C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\bin\Debug\net5.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\bin\Debug\net5.0\System.Drawing.Common.dll
+C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll

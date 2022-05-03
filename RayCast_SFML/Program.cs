@@ -1,7 +1,11 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 using System;
+using System.Drawing;
+using System.Net.Http.Headers;
 using SFML.System;
+using Color = SFML.Graphics.Color;
+using Image = SFML.Graphics.Image;
 
 namespace RayCast_SFML
 {
@@ -17,6 +21,7 @@ namespace RayCast_SFML
         //Player
         private const double PLAYER_FOV = 60;
         private const double PLAYER_HALF_FOV = PLAYER_FOV / 2;
+        private const double PLAYER_RADIUS = MAP_BLOCK_SIZE / 2;
         private static double playerX = 3;
         private static double playerY = 3;
         private static double playerAngle = 45;
@@ -32,6 +37,26 @@ namespace RayCast_SFML
         private static double projectionHeight = SCREEN_HEIGHT / SCREEN_SCALE;
         private static double projectionHalfWidth = projectionWidth / 2;
         private static double projectionHalfHeight = projectionHeight / 2;
+
+        //Texture
+        private static double textureWidth = 16;
+        private static double textureHeight = 16;
+        private static int[,] textureBitmap =
+        {
+            {1,1,1,1,1,1,1,1},
+            {0,0,0,1,0,0,0,1},
+            {1,1,1,1,1,1,1,1},
+            {0,1,0,0,0,1,0,0},
+            {1,1,1,1,1,1,1,1},
+            {0,0,0,1,0,0,0,1},
+            {1,1,1,1,1,1,1,1},
+            {0,1,0,0,0,1,0,0}
+        };
+        private static Color[] textureColors =
+        {
+            new Color(255, 241, 232),
+            new Color(194, 195, 199)
+        };
 
         //Map
         private const int MAP_WIDTH = 24;
@@ -136,6 +161,12 @@ namespace RayCast_SFML
 
                 int wallHeight = (int)(SCREEN_HALF_HEIGHT / distance);
 
+                //Get texture
+                //Coming soon
+
+                //Calculate texture position
+                double texturePosX = Math.Floor((textureWidth * (rayX + rayY)) % textureWidth);
+
                 Color wallColor;
                 Color blackColor = Color.Black;
 
@@ -148,7 +179,10 @@ namespace RayCast_SFML
                     default: wallColor = Color.White; break;
                 }
 
-                DrawLine(context, rayCount, SCREEN_HALF_HEIGHT - wallHeight, wallHeight, wallColor);
+                //DrawLine(context, rayCount, SCREEN_HALF_HEIGHT - wallHeight, wallHeight, wallColor);
+                //DrawTexture(context, rayCount, wallHeight, texturePosX);
+                //DrawLineByPoints(context, rayCount, SCREEN_HALF_HEIGHT - wallHeight, rayCount, SCREEN_HALF_HEIGHT + wallHeight, wallColor);
+                LoadTextures(context, rayCount, wallHeight, texturePosX);
 
                 rayAngle += raycastingIncrementAngle;
             }
@@ -201,7 +235,8 @@ namespace RayCast_SFML
         {
             CircleShape player = new CircleShape
             {
-                Radius = MAP_BLOCK_SIZE / 2,
+                Radius = (float)PLAYER_RADIUS,
+                Origin = new Vector2f((float)PLAYER_RADIUS, (float)PLAYER_RADIUS),
                 FillColor = Color.Red,
                 OutlineColor = Color.Black,
                 Position = new Vector2f((float)playerX * MAP_BLOCK_SIZE, (float)playerY * MAP_BLOCK_SIZE)
@@ -272,6 +307,68 @@ namespace RayCast_SFML
             {
                 playerAngle -= playerRotationSpeed * elapsedTime.AsSeconds();
             }
+        }
+
+        private static void DrawTexture(RenderWindow context, double x, double wallHeight, double texturePosX)
+        {
+            double yIncrementer = (wallHeight * 2) / textureHeight;
+            double y = SCREEN_HALF_HEIGHT - wallHeight;
+
+            for (int i = 0; i < textureHeight; i++)
+            {
+                Color strokeColor = textureColors[textureBitmap[i, (int)texturePosX]];
+                Vertex[] line =
+                {
+                    new Vertex(new Vector2f((float)x, (float)y)){Color = strokeColor},
+                    new Vertex(new Vector2f((float)x, (float)(y + yIncrementer))){Color = strokeColor}
+                };
+
+                context.Draw(line, PrimitiveType.Lines);
+
+                y += yIncrementer;
+            }
+        }
+
+        private static void DrawLineByPoints(RenderWindow context, double x1, double y1, double x2, double y2, Color color)
+        {
+            Vertex[] line =
+            {
+                new Vertex(new Vector2f((float)x1, (float)y1)){Color = color},
+                new Vertex(new Vector2f((float)x2, (float)y2)){Color = color}
+            };
+
+            context.Draw(line, PrimitiveType.Lines);
+        }
+
+        private static void LoadTextures(RenderWindow context, double x, double wallHeight, double texturePosX)
+        {
+            Image wallImg = new Image("wall.png");
+            double yIncrementer = (wallHeight * 2) / textureHeight;
+            double y = SCREEN_HALF_HEIGHT - wallHeight;
+
+            for (int i = 0; i < textureHeight; i++)
+            {
+                Color strokeColor = wallImg.GetPixel((uint)i, (uint)texturePosX);
+                Vertex[] line =
+                {
+                    new Vertex(new Vector2f((float)x, (float)y)){Color = strokeColor},
+                    new Vertex(new Vector2f((float)x, (float)(y + yIncrementer))){Color = strokeColor}
+                };
+
+                context.Draw(line, PrimitiveType.Lines);
+
+                y += yIncrementer;
+            }
+        }
+
+        private static void GetTextureData()
+        {
+
+        }
+
+        private static void ParseImageData()
+        {
+
         }
     }
 }

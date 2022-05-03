@@ -1,15 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "BAUOiRbmA1/9qC4VnXwLYt3GKbnyNlqoxc8wwuH+vXvJ5hzFbrCWr+2ltWyXf29jFJMguBno+47iYYVDCfOltg==",
+  "dgSpecHash": "1XGtsW9dm83GyUmn78uWoS0pvjvSwQSad62hDBlJu0lykHToLdf+X4B6y1/ooa8A8wpPR9GA329uU8yjL4FE5w==",
   "success": true,
   "projectFilePath": "C:\\Users\\artem\\source\\repos\\RayCast_SFML\\RayCast_SFML\\RayCast_SFML.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\artem\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\artem\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\artem\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
     "C:\\Users\\artem\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
     "C:\\Users\\artem\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
     "C:\\Users\\artem\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
-    "C:\\Users\\artem\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+    "C:\\Users\\artem\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512",
+    "C:\\Users\\artem\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }
