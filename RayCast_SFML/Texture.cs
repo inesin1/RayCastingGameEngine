@@ -10,15 +10,18 @@ namespace RayCast_SFML
     internal class Texture
     {
         //Поля
-        public int Width;
-        public int Height;
-        public string Source;
-        public Image Image;
+        public int Width; //Ширина
+        public int Height; //Высота
+        public string Filename; //Название файла
+        public Image Image; //Объект картинки для текстуры
 
-        public Texture(string source)
+        //Папка с ассетами для игры
+        private static string _assetsFolder = @"C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\assets\";
+
+        public Texture(string filename)
         {
-            Source = source;
-            Image = new Image(source);
+            Filename = filename;
+            Image = new Image(_assetsFolder + filename);
             Width = (int)Image.Size.X;
             Height = (int)Image.Size.Y;
         }

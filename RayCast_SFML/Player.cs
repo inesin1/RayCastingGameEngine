@@ -21,7 +21,7 @@ namespace RayCast_SFML
             Y = 3;
             Angle = 45;
             MoveSpeed = 4.0;
-            RotationSpeed = 40.0;
+            RotationSpeed = 60.0;
             Radius = 4;
         }
     }

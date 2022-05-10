@@ -108,8 +108,8 @@ namespace RayCast_SFML
                 switch (wall)
                 {
                     case 1: currTexture = _textures["brickWall"]; break;
-                    case 2: currTexture = _textures["brickWall"]; break;
-                    case 3: currTexture = _textures["brickWall"]; break;
+                    case 2: currTexture = _textures["whiteBrickWall"]; break;
+                    case 3: currTexture = _textures["sand"]; break;
                     case 4: currTexture = _textures["brickWall"]; break;
                     default: currTexture = _textures["brickWall"]; break;
                 }
@@ -117,7 +117,7 @@ namespace RayCast_SFML
                 //Расчет позиции текстуры (сдвиг)
                 double texturePosX = Math.Floor((currTexture.Width * (rayX + rayY)) % currTexture.Width);
 
-                //Просто цветные стены
+                /*//Просто цветные стены
                 Color wallColor;
                 Color blackColor = Color.Black;
 
@@ -128,7 +128,7 @@ namespace RayCast_SFML
                     case 3: wallColor = Color.Green; break;
                     case 4: wallColor = Color.Yellow; break;
                     default: wallColor = Color.White; break;
-                }
+                }*/
 
                 //DrawLine(rayCount, _screenHalfHeight - wallHeight, wallHeight, wallColor);
                 //DrawLineByPoints(rayCount, _screenHalfHeight - wallHeight, rayCount, _screenHalfHeight + wallHeight, wallColor);
@@ -307,7 +307,9 @@ namespace RayCast_SFML
             raycastingIncrementAngle = _player.Fov / ScreenWidth;
 
             _textures = new Dictionary<string, Texture>();
-            _textures["brickWall"] = new Texture(@"C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\bin\Debug\net5.0\wall.png");
+            _textures["brickWall"] = new Texture("wall.png");
+            _textures["whiteBrickWall"] = new Texture("whiteBrickWall.png");
+            _textures["sand"] = new Texture("sand.png");
 
             _map = new Map(
                     new int[24, 24]
