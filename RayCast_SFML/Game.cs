@@ -11,6 +11,9 @@ namespace RayCast_SFML
         //Game
         public string Title;
 
+        //Папка с ассетами для игры
+        public static string AssetsFolder = @"C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\assets\";
+
         //Screen
         public int ScreenWidth; //Ширина экрана
         public int ScreenHeight; //Высота экрана
@@ -39,6 +42,9 @@ namespace RayCast_SFML
         //Animations
         private AnimationManager _animationManager;
 
+        //Clock
+        private Clock _clock;
+
         public Game(string title, int screenWidth, int screenHeight)
         {
             Title = title;
@@ -51,15 +57,13 @@ namespace RayCast_SFML
 
         public void Run()
         {
-            Clock clock = new Clock();
-
             //Game loop
             while (_window.IsOpen)
             {
                 _window.DispatchEvents();
 
                 //Game time
-                Time elapsedTime = clock.Restart();
+                Time elapsedTime = _clock.Restart();
 
                 //Clear screen
                 _window.Clear(Color.White);
@@ -314,6 +318,8 @@ namespace RayCast_SFML
             for (int i = 0; i < texture.Height; i++)
             {
                 Color strokeColor = wallImg.GetPixel((uint)i, (uint)texturePosX);
+                //double depth = _screenHalfHeight / wallHeight;
+                //int c = (int)(255 / (1 + depth * depth * 0.0001));
                 Vertex[] line =
                 {
                     new Vertex(new Vector2f((float)x, (float)y)){Color = strokeColor},
@@ -330,6 +336,33 @@ namespace RayCast_SFML
         {
             //Shotgun
             _window.Draw(_sprites["shotgun"]);
+        }
+
+        private int _mFrame;
+        private int _mFps;
+        private Clock _mClock = new();
+        private void DrawFps()
+        {
+            Text fps = new Text()
+            {
+                Font = new Font(AssetsFolder + "fonts\\" + "ARIAL.TTF"),
+                CharacterSize = 24,
+                FillColor = Color.Green,
+                Position = new Vector2f(ScreenWidth - 30, 0)
+            };
+
+            if (_mClock.ElapsedTime.AsSeconds() >= 1)
+            {
+                _mFps = _mFrame;
+                _mFrame = 0;
+                _mClock.Restart();
+            }
+
+            ++_mFrame;
+
+            fps.DisplayedString = _mFps.ToString();
+
+            _window.Draw(fps);
         }
 
         /// <summary>
@@ -386,10 +419,12 @@ namespace RayCast_SFML
                 );
 
             _sprites = new Dictionary<string, Sprite>();
-            _sprites.Add("shotgun", new Sprite(new SFML.Graphics.Texture(Texture.AssetsFolder + "s_weapon_shotgun.png")));
+            _sprites.Add("shotgun", new Sprite(new SFML.Graphics.Texture(AssetsFolder + "sprites\\" + "s_weapon_shotgun.png")));
             _sprites["shotgun"].Position = _player.ArmCoordinate;
             _sprites["shotgun"].Scale = new Vector2f(1.7f, 1.7f);
             _sprites["shotgun"].TextureRect = new IntRect(0, 0, 102, 147);
+
+            _clock = new Clock();
         }
 
         /// <summary>
@@ -407,9 +442,10 @@ namespace RayCast_SFML
         {
             DrawBackground();
             DrawRayCasting();
+            DrawSprites();
             DrawMap();
             DrawPlayer();
-            DrawSprites();
+            DrawFps();
         }
     }
 }

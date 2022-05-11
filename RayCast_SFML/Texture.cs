@@ -15,13 +15,10 @@ namespace RayCast_SFML
         public string Filename; //Название файла
         public Image Image; //Объект картинки для текстуры
 
-        //Папка с ассетами для игры
-        public static string AssetsFolder = @"C:\Users\artem\source\repos\RayCast_SFML\RayCast_SFML\assets\";
-
         public Texture(string filename)
         {
             Filename = filename;
-            Image = new Image(AssetsFolder + filename);
+            Image = new Image(Game.AssetsFolder + "textures\\" + filename);
             Width = (int)Image.Size.X;
             Height = (int)Image.Size.Y;
         }
