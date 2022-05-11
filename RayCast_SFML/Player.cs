@@ -1,4 +1,6 @@
 ﻿
+using SFML.System;
+
 namespace RayCast_SFML
 {
     internal class Player
@@ -12,6 +14,7 @@ namespace RayCast_SFML
         public double MoveSpeed; //Скорость передвижения
         public double RotationSpeed; //Скорость поворота
         public double Radius; //Радиус
+        public Vector2f ArmCoordinate; //Координата рук
 
         public Player()
         {
@@ -23,6 +26,7 @@ namespace RayCast_SFML
             MoveSpeed = 4.0;
             RotationSpeed = 60.0;
             Radius = 4;
+            ArmCoordinate = new Vector2f(370, 240);
         }
     }
 }

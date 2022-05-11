@@ -27,11 +27,17 @@ namespace RayCast_SFML
         //Словарь текстур
         private Dictionary<string, Texture> _textures;
 
+        //Словарь спрайтов
+        private Dictionary<string, Sprite> _sprites;
+
         //Map
         private Map _map;
 
         //Window
         private RenderWindow _window;
+
+        //Animations
+        private AnimationManager _animationManager;
 
         public Game(string title, int screenWidth, int screenHeight)
         {
@@ -217,6 +223,15 @@ namespace RayCast_SFML
 
         private void PlayerInput(Time elapsedTime)
         {
+            double windowCenterX = 0.5f * _window.Size.X;
+            double windowCenterY = 0.5f * _window.Size.Y;
+
+            double rotation_horizontal = _player.Fov * (windowCenterX - Mouse.GetPosition(_window).X) / _window.Size.X;
+
+            _player.Angle -= rotation_horizontal;
+
+            Mouse.SetPosition(new Vector2i(_screenHalfWidth, _screenHalfHeight), _window);
+
             //move forward if no wall in front of you
             if (Keyboard.IsKeyPressed(Keyboard.Key.W))
             {
@@ -250,12 +265,32 @@ namespace RayCast_SFML
             //rotate to the right
             if (Keyboard.IsKeyPressed(Keyboard.Key.D))
             {
-                _player.Angle += _player.RotationSpeed * elapsedTime.AsSeconds();
+                double playerCos = Math.Cos(DegToRad(_player.Angle - 90)) * _player.MoveSpeed;
+                double playerSin = Math.Sin(DegToRad(_player.Angle - 90)) * _player.MoveSpeed;
+                double newX = _player.X - playerCos * elapsedTime.AsSeconds();
+                double newY = _player.Y - playerSin * elapsedTime.AsSeconds();
+
+                //Collision test
+                if (_map.Bitmap[(int)newY, (int)newX] == 0)
+                {
+                    _player.X = newX;
+                    _player.Y = newY;
+                }
             }
             //rotate to the left
             if (Keyboard.IsKeyPressed(Keyboard.Key.A))
             {
-                _player.Angle -= _player.RotationSpeed * elapsedTime.AsSeconds();
+                double playerCos = Math.Cos(DegToRad(_player.Angle + 90)) * _player.MoveSpeed;
+                double playerSin = Math.Sin(DegToRad(_player.Angle + 90)) * _player.MoveSpeed;
+                double newX = _player.X - playerCos * elapsedTime.AsSeconds();
+                double newY = _player.Y - playerSin * elapsedTime.AsSeconds();
+
+                //Collision test
+                if (_map.Bitmap[(int)newY, (int)newX] == 0)
+                {
+                    _player.X = newX;
+                    _player.Y = newY;
+                }
             }
         }
 
@@ -291,6 +326,12 @@ namespace RayCast_SFML
             }
         }
 
+        private void DrawSprites()
+        {
+            //Shotgun
+            _window.Draw(_sprites["shotgun"]);
+        }
+
         /// <summary>
         /// Инициализирует объекты игры
         /// </summary>
@@ -298,6 +339,8 @@ namespace RayCast_SFML
         {
             _window = new RenderWindow(new VideoMode((uint)ScreenWidth, (uint)ScreenHeight), Title);
             _window.Closed += (object sender, EventArgs e) => { _window.Close();};
+
+            _window.SetMouseCursorVisible(false);
 
             _player = new Player();
 
@@ -341,6 +384,12 @@ namespace RayCast_SFML
                     },
                     8
                 );
+
+            _sprites = new Dictionary<string, Sprite>();
+            _sprites.Add("shotgun", new Sprite(new SFML.Graphics.Texture(Texture.AssetsFolder + "s_weapon_shotgun.png")));
+            _sprites["shotgun"].Position = _player.ArmCoordinate;
+            _sprites["shotgun"].Scale = new Vector2f(1.7f, 1.7f);
+            _sprites["shotgun"].TextureRect = new IntRect(0, 0, 102, 147);
         }
 
         /// <summary>
@@ -360,6 +409,7 @@ namespace RayCast_SFML
             DrawRayCasting();
             DrawMap();
             DrawPlayer();
+            DrawSprites();
         }
     }
 }
